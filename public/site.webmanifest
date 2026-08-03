@@ -1,0 +1,10 @@
+{
+  "name": "Flights Club UK",
+  "short_name": "Flights Club UK",
+  "description": "Premium UK travel agency — flights, holidays, visas and travel insurance.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071B33",
+  "theme_color": "#071B33",
+  "icons": []
+}

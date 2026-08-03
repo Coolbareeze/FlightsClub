@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-manrope: 'Manrope', system-ui, sans-serif;
+    --font-inter: 'Inter', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-ink font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-navy dark:text-white;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-navy;
+  }
+
+  :focus-visible {
+    outline: 2px solid #C89A2B;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:bg-navy-700 hover:shadow-premium active:scale-[0.98];
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-navy shadow-gold transition-all duration-300 hover:brightness-105 hover:shadow-premium active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-navy/15 bg-white/70 px-7 py-3.5 text-sm font-semibold text-navy backdrop-blur transition-all duration-300 hover:border-navy hover:bg-white active:scale-[0.98] dark:border-white/20 dark:bg-white/5 dark:text-white;
+  }
+  .glass-panel {
+    @apply border border-white/20 bg-white/10 backdrop-blur-xl;
+  }
+  .section-pad {
+    @apply py-20 md:py-28;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-gold-dark;
+  }
+  .card-lift {
+    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-premium;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .mask-fade-b { mask-image: linear-gradient(to bottom, black 70%, transparent 100%); }
+}
