@@ -15,14 +15,16 @@ export function generateStaticParams() {
   return packages.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const pkg = packages.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const pkg = packages.find((p) => p.slug === slug);
   if (!pkg) return {};
   return buildMetadata({ title: `${pkg.title} — from ${formatGBP(pkg.price)}pp`, description: `${pkg.duration} in ${pkg.destination} with ${pkg.airline} flights and ${pkg.hotel}. ATOL protected, book with Flights Club UK.`, path: `/holiday-packages/${pkg.slug}`, image: pkg.image });
 }
 
-export default function PackageDetailPage({ params }: { params: { slug: string } }) {
-  const pkg = packages.find((p) => p.slug === params.slug);
+export default async function PackageDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const pkg = packages.find((p) => p.slug === slug);
   if (!pkg) notFound();
 
   const related = packages.filter((p) => p.slug !== pkg.slug && p.category === pkg.category).slice(0, 3);
