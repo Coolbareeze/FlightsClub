@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { Container } from '@/components/ui/Container';
-import { destinations } from '@/lib/data/destinations';
+import { getAllDestinations } from '@/lib/data/destinations';
 import { blogPosts } from '@/lib/data/blog';
 
 export const metadata: Metadata = buildMetadata({ title: 'Sitemap', description: 'A full overview of every page on the Flights Club UK website.', path: '/site-map' });
@@ -14,7 +14,11 @@ const groups = [
   { title: 'Legal', links: [{ label: 'Privacy Policy', href: '/privacy-policy' }, { label: 'Terms & Conditions', href: '/terms' }, { label: 'Cookie Policy', href: '/cookie-policy' }] },
 ];
 
-export default function SiteMapPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function SiteMapPage() {
+  const destinations = await getAllDestinations();
+
   return (
     <div className="pt-32">
       <Container className="pb-20">

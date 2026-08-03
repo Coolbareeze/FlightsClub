@@ -8,26 +8,24 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { HolidayEnquiryForm } from '@/components/forms/HolidayEnquiryForm';
 import { PackageCard } from '@/components/home/PackageCard';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
-import { packages } from '@/lib/data/packages';
+import { getPackageBySlug, getPackagesByCategory } from '@/lib/data/packages';
 import { formatGBP } from '@/lib/utils';
 
-export function generateStaticParams() {
-  return packages.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const pkg = packages.find((p) => p.slug === slug);
+  const pkg = await getPackageBySlug(slug);
   if (!pkg) return {};
   return buildMetadata({ title: `${pkg.title} — from ${formatGBP(pkg.price)}pp`, description: `${pkg.duration} in ${pkg.destination} with ${pkg.airline} flights and ${pkg.hotel}. ATOL protected, book with Flights Club UK.`, path: `/holiday-packages/${pkg.slug}`, image: pkg.image });
 }
 
 export default async function PackageDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const pkg = packages.find((p) => p.slug === slug);
+  const pkg = await getPackageBySlug(slug);
   if (!pkg) notFound();
 
-  const related = packages.filter((p) => p.slug !== pkg.slug && p.category === pkg.category).slice(0, 3);
+  const related = (await getPackagesByCategory(pkg.category)).filter((p) => p.slug !== pkg.slug).slice(0, 3);
 
   return (
     <div className="pt-32">

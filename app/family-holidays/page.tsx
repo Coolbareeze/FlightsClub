@@ -14,7 +14,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/family-holidays',
 });
 
-export default function FamilyHolidaysPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function FamilyHolidaysPage() {
+  const packages = await getPackagesByCategory('family');
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Family Holidays', path: '/family-holidays' }]} />
@@ -25,7 +29,7 @@ export default function FamilyHolidaysPage() {
         image="https://picsum.photos/seed/family-hero/1920/1080"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Family Holidays' }]}
       />
-      <PackageGridSection pkgs={getPackagesByCategory('family')} />
+      <PackageGridSection pkgs={packages} />
       <FAQSection faqs={generalFaqs} />
       <CTABanner />
     </>

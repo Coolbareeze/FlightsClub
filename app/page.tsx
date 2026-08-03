@@ -11,6 +11,8 @@ import { TravelInspiration } from '@/components/home/TravelInspiration';
 import { CTABanner } from '@/components/home/CTABanner';
 import { NewsletterSection } from '@/components/home/NewsletterSection';
 import { buildMetadata } from '@/lib/seo';
+import { getAllDestinations } from '@/lib/data/destinations';
+import { getAllPackages } from '@/lib/data/packages';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Flights Club UK | Premium Flights, Holidays & Visa Services',
@@ -18,13 +20,17 @@ export const metadata: Metadata = buildMetadata({
   path: '/',
 });
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  const [destinations, packages] = await Promise.all([getAllDestinations(), getAllPackages()]);
+
   return (
     <>
       <Hero />
       <TrustBar />
-      <PopularDestinations />
-      <HolidayPackagesSection />
+      <PopularDestinations destinations={destinations} />
+      <HolidayPackagesSection packages={packages} />
       <AirlinesSlider />
       <ServicesGrid />
       <WhyChooseUsSection />

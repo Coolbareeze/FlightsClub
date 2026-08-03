@@ -2,10 +2,12 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { packages } from '@/lib/data/packages';
+import type { HolidayPackage } from '@/types';
 import { PackageCard } from './PackageCard';
 
-export function HolidayPackagesSection() {
+export function HolidayPackagesSection({ packages }: { packages: HolidayPackage[] }) {
+  if (packages.length === 0) return null;
+
   return (
     <section className="section-pad bg-white dark:bg-navy-950">
       <Container>

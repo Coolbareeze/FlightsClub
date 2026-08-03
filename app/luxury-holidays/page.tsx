@@ -14,7 +14,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/luxury-holidays',
 });
 
-export default function LuxuryHolidaysPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function LuxuryHolidaysPage() {
+  const packages = await getPackagesByCategory('luxury');
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Luxury Holidays', path: '/luxury-holidays' }]} />
@@ -25,7 +29,7 @@ export default function LuxuryHolidaysPage() {
         image="https://picsum.photos/seed/luxury-hero/1920/1080"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Luxury Holidays' }]}
       />
-      <PackageGridSection pkgs={getPackagesByCategory('luxury')} />
+      <PackageGridSection pkgs={packages} />
       <FAQSection faqs={generalFaqs} />
       <CTABanner />
     </>

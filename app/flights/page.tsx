@@ -10,7 +10,7 @@ import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { CTABanner } from '@/components/home/CTABanner';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
-import { destinations } from '@/lib/data/destinations';
+import { getAllDestinations } from '@/lib/data/destinations';
 import { generalFaqs } from '@/lib/data/faqs';
 
 export const metadata: Metadata = buildMetadata({
@@ -19,7 +19,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/flights',
 });
 
-export default function FlightsPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function FlightsPage() {
+  const destinations = await getAllDestinations();
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Flights', path: '/flights' }]} />

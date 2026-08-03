@@ -1,16 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Search, X } from 'lucide-react';
-import { destinations } from '@/lib/data/destinations';
+import type { Destination } from '@/types';
 
 export function SearchModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [query, setQuery] = useState('');
-  const results = query.length > 1
-    ? destinations.filter((d) => d.city.toLowerCase().includes(query.toLowerCase()) || d.country.toLowerCase().includes(query.toLowerCase())).slice(0, 6)
-    : [];
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!open || loaded) return;
+    fetch('/api/destinations')
+      .then((res) => res.json())
+      .then((data) => setDestinations(data.destinations ?? []))
+      .catch(() => setDestinations([]))
+      .finally(() => setLoaded(true));
+  }, [open, loaded]);
+
+  const results =
+    query.length > 1
+      ? destinations
+          .filter((d) => d.city.toLowerCase().includes(query.toLowerCase()) || d.country.toLowerCase().includes(query.toLowerCase()))
+          .slice(0, 6)
+      : [];
 
   return (
     <AnimatePresence>

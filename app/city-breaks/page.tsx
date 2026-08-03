@@ -14,7 +14,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/city-breaks',
 });
 
-export default function CityBreaksPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function CityBreaksPage() {
+  const packages = await getPackagesByCategory('city');
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'City Breaks', path: '/city-breaks' }]} />
@@ -25,7 +29,7 @@ export default function CityBreaksPage() {
         image="https://picsum.photos/seed/city-breaks-hero/1920/1080"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'City Breaks' }]}
       />
-      <PackageGridSection pkgs={getPackagesByCategory('city')} />
+      <PackageGridSection pkgs={packages} />
       <FAQSection faqs={generalFaqs} />
       <CTABanner />
     </>

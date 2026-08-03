@@ -14,7 +14,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/beach-holidays',
 });
 
-export default function BeachHolidaysPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function BeachHolidaysPage() {
+  const packages = await getPackagesByCategory('beach');
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Beach Holidays', path: '/beach-holidays' }]} />
@@ -25,7 +29,7 @@ export default function BeachHolidaysPage() {
         image="https://picsum.photos/seed/beach-hero/1920/1080"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Beach Holidays' }]}
       />
-      <PackageGridSection pkgs={getPackagesByCategory('beach')} />
+      <PackageGridSection pkgs={packages} />
       <FAQSection faqs={generalFaqs} />
       <CTABanner />
     </>

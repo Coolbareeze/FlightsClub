@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/constants';
 import { blogPosts } from '@/lib/data/blog';
-import { packages } from '@/lib/data/packages';
+import { getAllPackages } from '@/lib/data/packages';
 
 const staticPaths = [
   '', '/flights', '/holiday-packages', '/city-breaks', '/beach-holidays', '/luxury-holidays',
@@ -10,8 +10,9 @@ const staticPaths = [
   '/cookie-policy', '/site-map',
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const packages = await getAllPackages();
 
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((path) => ({
     url: `${SITE.url}${path}`,

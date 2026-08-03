@@ -1,4 +1,5 @@
 export interface Destination {
+  id?: number;
   slug: string;
   city: string;
   country: string;
@@ -9,6 +10,7 @@ export interface Destination {
 }
 
 export interface HolidayPackage {
+  id?: number;
   slug: string;
   title: string;
   destination: string;

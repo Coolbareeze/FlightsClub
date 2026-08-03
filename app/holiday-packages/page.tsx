@@ -6,7 +6,7 @@ import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { CTABanner } from '@/components/home/CTABanner';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
-import { packages } from '@/lib/data/packages';
+import { getAllPackages } from '@/lib/data/packages';
 import { generalFaqs } from '@/lib/data/faqs';
 
 export const metadata: Metadata = buildMetadata({
@@ -15,7 +15,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/holiday-packages',
 });
 
-export default function HolidayPackagesPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function HolidayPackagesPage() {
+  const packages = await getAllPackages();
+
   return (
     <>
       <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Holiday Packages', path: '/holiday-packages' }]} />

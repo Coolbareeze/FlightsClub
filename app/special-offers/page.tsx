@@ -7,7 +7,7 @@ import { PackageCard } from '@/components/home/PackageCard';
 import { OfferCountdown } from '@/components/sections/OfferCountdown';
 import { CTABanner } from '@/components/home/CTABanner';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
-import { packages } from '@/lib/data/packages';
+import { getAllPackages } from '@/lib/data/packages';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Special Offers | Limited-Time Flight & Holiday Deals',
@@ -15,7 +15,10 @@ export const metadata: Metadata = buildMetadata({
   path: '/special-offers',
 });
 
-export default function SpecialOffersPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function SpecialOffersPage() {
+  const packages = await getAllPackages();
   const deal = packages[0];
 
   return (
@@ -29,17 +32,19 @@ export default function SpecialOffersPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Special Offers' }]}
       />
 
-      <section className="bg-white py-10 dark:bg-navy-950">
-        <Container>
-          <div className="flex flex-col items-center justify-between gap-6 rounded-xl2 border border-gold/30 bg-gold/5 p-6 sm:flex-row">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-gold-dark">Deal of the Week</p>
-              <p className="mt-1 font-heading text-lg font-bold text-navy dark:text-white">{deal.title} — from £{deal.price}pp</p>
+      {deal && (
+        <section className="bg-white py-10 dark:bg-navy-950">
+          <Container>
+            <div className="flex flex-col items-center justify-between gap-6 rounded-xl2 border border-gold/30 bg-gold/5 p-6 sm:flex-row">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-gold-dark">Deal of the Week</p>
+                <p className="mt-1 font-heading text-lg font-bold text-navy dark:text-white">{deal.title} — from £{deal.price}pp</p>
+              </div>
+              <OfferCountdown target={new Date(Date.now() + 4 * 86400000).toISOString()} />
             </div>
-            <OfferCountdown target={new Date(Date.now() + 4 * 86400000).toISOString()} />
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
       <section className="section-pad bg-white dark:bg-navy-950">
         <Container>
