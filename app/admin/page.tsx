@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MapPinned, Package, ExternalLink } from 'lucide-react';
 import { getPool } from '@/lib/db';
+import { SeedButton } from './SeedButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -47,6 +48,8 @@ export default async function AdminDashboard() {
           </div>
         </Link>
       </div>
+
+      <SeedButton />
 
       <a href="/" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-navy hover:underline">
         View live site <ExternalLink className="h-3.5 w-3.5" />

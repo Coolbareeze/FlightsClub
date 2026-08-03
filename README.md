@@ -2,17 +2,19 @@
 
 A premium, custom-designed Next.js website for **Flights Club UK**, a London-based ATOL-protected travel agency. Built to compete visually and functionally with Expedia, Booking.com, TravelUp and lastminute.com while feeling like a bespoke luxury aviation brand (Emirates × Apple × British Airways).
 
-Verified: `npm run build` compiles clean with zero TypeScript or ESLint errors and statically generates all 37 routes.
+Verified: `npm run build` compiles clean with zero TypeScript errors and all routes build successfully (static where possible, server-rendered where content is DB-backed).
 
 ## Tech Stack
 
-- **Next.js 14** (App Router, SSR + SSG, `next/image`, `next/font`)
+- **Next.js 16** (App Router + Turbopack, SSR + SSG, `next/image`, `next/font`)
 - **TypeScript** (strict mode)
 - **Tailwind CSS** (custom design tokens for the brand's colour, type and shadow system)
 - **Framer Motion** (page/section animations, micro-interactions)
 - **React Hook Form + Zod** (all form validation)
 - **Embla Carousel** (testimonials)
 - **Lucide React** (icon set)
+
+**Note on linting:** Next.js 16 removed the built-in `next lint` command and no longer runs ESLint during `next build`. `eslint`/`eslint-config-next` were dropped from `devDependencies` to avoid a peer-dependency conflict (eslint-config-next 16.x requires ESLint 9's flat config, and pulling that in was out of scope for this fix). To re-add linting later: `npm i -D eslint@^9 eslint-config-next@16` and create an `eslint.config.mjs` per [Next's ESLint docs](https://nextjs.org/docs/app/api-reference/config/eslint).
 
 ## Getting Started
 
@@ -94,6 +96,85 @@ To go live, wire these routes to:
 - Rate limiting + CAPTCHA (e.g. Cloudflare Turnstile) in front of the handlers
 - Mailchimp/Klaviyo for the newsletter endpoint
 
+## Admin Panel (Manage Packages & Destinations)
+
+The site includes a built-in, password-protected admin panel at **`/admin`** for
+adding, editing and deleting Holiday Packages and Destinations — no external
+CMS or extra account needed. It's backed by a MySQL database (the one already
+included free with Hostinger Business Web Hosting).
+
+### 1. Create the MySQL database in Hostinger
+
+1. In **hPanel** → **Databases** → **MySQL Databases**.
+2. Create a new database, e.g. `u123456789_fcuk`. Hostinger auto-generates the
+   full database name/username with your account prefix — note both.
+3. Create a database user (or use the auto-created one) and set a strong password.
+4. Note the **database host** — on Hostinger this is usually `localhost` when
+   the app and database are on the same account, but check the MySQL Databases
+   page; it will show the exact host to use.
+
+### 2. Set environment variables
+
+Copy `.env.example` to `.env.local` for local development, and add the same
+variables in Hostinger under your Node.js app → **Environment variables**
+(so they apply to the live deployment):
+
+```
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=u123456789_fcuk
+DB_USER=u123456789_fcuk
+DB_PASSWORD=your-db-password
+ADMIN_PASSWORD=choose-a-strong-password
+ADMIN_SESSION_SECRET=a-long-random-string
+```
+
+Generate `ADMIN_SESSION_SECRET` with:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+After adding/changing env vars in Hostinger, **restart the Node.js app** for them to take effect.
+
+### 3. Log in and load starter content
+
+1. Visit `https://flightsclubuk.co.uk/admin`.
+2. Log in with the password you set as `ADMIN_PASSWORD`.
+3. On the **Dashboard**, click **Run now** under "Load starter content." This
+   creates the `packages` and `destinations` tables if they don't exist yet
+   and inserts the sample packages/destinations as starting content — no
+   terminal needed. It runs entirely on the server, which is why it works
+   even though Hostinger's shared MySQL databases generally aren't reachable
+   from your own computer (`DB_HOST=localhost` only resolves correctly from
+   the server itself). Safe to click more than once — it upserts by slug
+   rather than duplicating rows.
+
+   (Alternative for local development: `npm run db:seed` does the same thing
+   from your machine, but only works if `DB_HOST` in your `.env.local`
+   points at a database reachable from your computer — e.g. Remote MySQL
+   enabled in hPanel, not `localhost`.)
+
+### 4. Manage content
+
+**Holiday Packages** and **Destinations** each have a list view with
+Add / Edit / Delete. Changes go live immediately — the public site reads
+directly from the same database (pages are server-rendered per request).
+
+### Notes
+
+- If the database is ever unreachable, the public site **degrades gracefully**
+  rather than crashing: destination/package sections simply render empty
+  instead of throwing, and the error is logged server-side only.
+- `/admin/*` and `/api/admin/*` are protected by `proxy.ts` (Next.js's
+  middleware layer), which checks a signed, HttpOnly session cookie set on
+  login. There's no way to reach the CRUD screens or APIs without the
+  `ADMIN_PASSWORD`.
+- To change the admin password, just update `ADMIN_PASSWORD` in Hostinger's
+  environment variables and restart the app — existing sessions are
+  invalidated since the cookie is verified against the current secret/password
+  each request.
+
 ## SEO
 
 - Per-page `generateMetadata` / `metadata` exports (title, description, canonical, OG, Twitter cards)
@@ -152,4 +233,4 @@ colour contrast chosen against WCAG AA against the navy/white/gold palette.
 - Forms are wired to mock API routes, not a live email/CRM backend
 - No logo/favicon supplied yet (by design, per brief)
 - Dark mode toggle is implemented (class-based, persisted to `localStorage`) but not deeply audited on every component
-- CMS: content currently lives in typed data files under `lib/data/` for simplicity and type-safety. For non-technical editing, connect a headless CMS (Sanity, Contentful, Payload) and swap the data-fetching layer in `lib/data/*.ts` for API calls — the component layer is already decoupled from the data source.
+- Packages and Destinations are editable via the built-in `/admin` panel (MySQL-backed) — see **Admin Panel** above. Other content (blog posts, testimonials, FAQs, airlines) still lives in typed data files under `lib/data/` for now; the same admin-panel pattern can be extended to these if needed.
