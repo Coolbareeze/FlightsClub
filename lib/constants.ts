@@ -72,6 +72,30 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
+// Major UK departure airports, used for the "From" autocomplete on the
+// flight search widget. Static list (not DB-backed) since routes/fares
+// per-airport aren't modelled yet — see README "Future Integrations".
+export const UK_AIRPORTS = [
+  { code: 'LHR', name: 'London Heathrow' },
+  { code: 'LGW', name: 'London Gatwick' },
+  { code: 'STN', name: 'London Stansted' },
+  { code: 'LTN', name: 'London Luton' },
+  { code: 'LCY', name: 'London City' },
+  { code: 'MAN', name: 'Manchester' },
+  { code: 'BHX', name: 'Birmingham' },
+  { code: 'EDI', name: 'Edinburgh' },
+  { code: 'GLA', name: 'Glasgow' },
+  { code: 'BRS', name: 'Bristol' },
+  { code: 'NCL', name: 'Newcastle' },
+  { code: 'LPL', name: 'Liverpool' },
+  { code: 'LBA', name: 'Leeds Bradford' },
+  { code: 'BFS', name: 'Belfast International' },
+  { code: 'ABZ', name: 'Aberdeen' },
+  { code: 'CWL', name: 'Cardiff' },
+  { code: 'EMA', name: 'East Midlands' },
+  { code: 'SOU', name: 'Southampton' },
+];
+
 export const TRUST_BADGES = [
   { label: 'ATOL Protected', sub: 'Licence No. 11856' },
   { label: 'IATA Registered', sub: 'Global airline access' },
