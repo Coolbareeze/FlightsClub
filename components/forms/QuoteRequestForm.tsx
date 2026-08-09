@@ -20,9 +20,26 @@ const schema = z.object({
 });
 type FormValues = z.infer<typeof schema>;
 
-export function QuoteRequestForm() {
+interface QuoteRequestFormProps {
+  defaultOrigin?: string;
+  defaultDestination?: string;
+  defaultDepartDate?: string;
+  defaultPassengers?: string;
+  defaultCabin?: string;
+}
+
+export function QuoteRequestForm({ defaultOrigin, defaultDestination, defaultDepartDate, defaultPassengers, defaultCabin }: QuoteRequestFormProps = {}) {
   const [submitted, setSubmitted] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      origin: defaultOrigin || '',
+      destination: defaultDestination || '',
+      departDate: defaultDepartDate || '',
+      passengers: defaultPassengers || '1 Adult',
+      cabin: defaultCabin || 'Economy',
+    },
+  });
 
   const onSubmit = async (data: FormValues) => {
     await fetch('/api/quote', { method: 'POST', body: JSON.stringify({ ...data, type: 'flight-quote' }) });
