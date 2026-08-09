@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeftRight, CalendarDays, MapPin, Plane, Search, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { UK_AIRPORTS } from '@/lib/constants';
+import { AIRPORTS } from '@/lib/data/airports';
 import type { Destination } from '@/types';
+
+const UK_AIRPORTS = AIRPORTS.filter((a) => a.country === 'United Kingdom' || a.country === 'Ireland');
 
 const tripTypes = ['Return', 'One Way', 'Multi-City'] as const;
 
@@ -53,16 +55,30 @@ export function FlightSearchWidget({ floating = true }: { floating?: boolean }) 
   const airportResults =
     origin.length > 0
       ? UK_AIRPORTS.filter(
-          (a) => a.name.toLowerCase().includes(origin.toLowerCase()) || a.code.toLowerCase().includes(origin.toLowerCase())
+          (a) =>
+            a.city.toLowerCase().includes(origin.toLowerCase()) ||
+            a.name.toLowerCase().includes(origin.toLowerCase()) ||
+            a.code.toLowerCase().includes(origin.toLowerCase())
         ).slice(0, 8)
       : UK_AIRPORTS.slice(0, 8);
 
+  // "To" searches the full worldwide airport list, not just our curated
+  // destinations, so customers can find literally any major city/airport —
+  // not only the ~100 we've written package/destination pages for. If a
+  // result happens to match one of our own destinations we show its price;
+  // otherwise it's just a plain airport result.
   const destinationResults =
     destination.length > 0
-      ? destinations
-          .filter((d) => d.city.toLowerCase().includes(destination.toLowerCase()) || d.country.toLowerCase().includes(destination.toLowerCase()))
-          .slice(0, 8)
-      : destinations.slice(0, 8);
+      ? AIRPORTS.filter(
+          (a) =>
+            a.city.toLowerCase().includes(destination.toLowerCase()) ||
+            a.country.toLowerCase().includes(destination.toLowerCase()) ||
+            a.name.toLowerCase().includes(destination.toLowerCase()) ||
+            a.code.toLowerCase().includes(destination.toLowerCase())
+        ).slice(0, 8)
+      : AIRPORTS.slice(0, 8);
+
+  const priceFor = (city: string) => destinations.find((d) => d.city.toLowerCase() === city.toLowerCase())?.fromPrice;
 
   return (
     <div className={cn('w-full rounded-xl3 border border-white/15 bg-white/95 p-5 shadow-premium backdrop-blur-xl md:p-7 dark:bg-navy-800/95', floating && '')}>
@@ -119,12 +135,12 @@ export function FlightSearchWidget({ floating = true }: { floating?: boolean }) 
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => {
-                    setOrigin(`${a.name} (${a.code})`);
+                    setOrigin(`${a.city} (${a.code})`);
                     setOriginOpen(false);
                   }}
                   className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm hover:bg-navy-50 dark:hover:bg-white/5"
                 >
-                  <span className="font-medium text-navy dark:text-white">{a.name}</span>
+                  <span className="font-medium text-navy dark:text-white">{a.city} <span className="font-normal text-navy-400">— {a.name}</span></span>
                   <span className="text-xs text-navy-400">{a.code}</span>
                 </button>
               ))}
@@ -158,24 +174,29 @@ export function FlightSearchWidget({ floating = true }: { floating?: boolean }) 
           {destinationOpen && (
             <div className="absolute left-0 right-0 top-full z-20 mt-1.5 max-h-64 overflow-y-auto rounded-xl border border-navy-100 bg-white p-1.5 shadow-premium dark:border-white/15 dark:bg-navy-800">
               {destinationResults.length > 0 ? (
-                destinationResults.map((d) => (
-                  <button
-                    key={d.slug}
-                    type="button"
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => {
-                      setDestination(`${d.city}, ${d.country}`);
-                      setDestinationSlug(d.slug);
-                      setDestinationOpen(false);
-                    }}
-                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm hover:bg-navy-50 dark:hover:bg-white/5"
-                  >
-                    <span className="flex items-center gap-2 font-medium text-navy dark:text-white">
-                      <MapPin className="h-3.5 w-3.5 text-gold" /> {d.city}, {d.country}
-                    </span>
-                    <span className="text-xs text-navy-400">from £{d.fromPrice}</span>
-                  </button>
-                ))
+                destinationResults.map((a) => {
+                  const price = priceFor(a.city);
+                  return (
+                    <button
+                      key={a.code}
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        setDestination(`${a.city}, ${a.country}`);
+                        const match = destinations.find((d) => d.city.toLowerCase() === a.city.toLowerCase());
+                        setDestinationSlug(match?.slug ?? null);
+                        setDestinationOpen(false);
+                      }}
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm hover:bg-navy-50 dark:hover:bg-white/5"
+                    >
+                      <span className="flex items-center gap-2 font-medium text-navy dark:text-white">
+                        <MapPin className="h-3.5 w-3.5 shrink-0 text-gold" /> {a.city}, {a.country}
+                        <span className="font-normal text-navy-400">({a.code})</span>
+                      </span>
+                      <span className="text-xs text-navy-400">{price ? `from £${price}` : ''}</span>
+                    </button>
+                  );
+                })
               ) : (
                 <p className="px-3 py-4 text-center text-xs text-navy-400">No destinations found for “{destination}”.</p>
               )}
