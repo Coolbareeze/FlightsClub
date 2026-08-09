@@ -32,6 +32,10 @@ export interface HolidayPackage {
 export interface Airline {
   name: string;
   slug: string;
+  // Optional path to an official logo file, e.g. '/images/airlines/emirates.svg'.
+  // Leave unset until the real (licensed) logo asset is supplied — see
+  // public/images/airlines/README.txt. Falls back to a text/monogram badge.
+  logo?: string;
 }
 
 export interface Testimonial {
