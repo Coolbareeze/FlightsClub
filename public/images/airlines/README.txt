@@ -1,57 +1,49 @@
 AIRLINE LOGOS
 =============
 
-The "We Book With The World's Leading Airlines" section on the homepage
-and /flights page is wired up to show real airline logos, but no logo
-files are included in this project — airline logos are trademarked brand
-assets, so we didn't scrape or fabricate them. Until a file is added here,
-that airline's card just shows its name as text (no broken images, no
-errors — it degrades gracefully).
+All 12 logos are now in place (PNG). Source: 4 pulled from your own
+outlooktravel.co.uk asset library (british-airways, etihad, qatar-airways,
+singapore-airlines); the remaining 8 (emirates, lufthansa, klm,
+turkish-airlines, virgin-atlantic, saudia, ethiopian-airlines, air-france)
+came from a third-party scraped logo archive (github.com/Jxck-S/airline-logos)
+at your explicit request, after being flagged that its license only covers
+identification use (e.g. flight trackers), not commercial/promotional
+display. Using them here carries trademark/copyright risk since Flights Club
+UK is a commercial site — worth keeping in mind if this ever comes up.
 
-HOW TO ADD A LOGO
-------------------
-1. Get the official logo from the airline's own press/media/newsroom page
-   (search "[airline name] media kit" or "[airline name] brand assets" —
-   e.g. Emirates, Lufthansa, KLM, Etihad, Turkish Airlines, British Airways,
-   Qatar Airways, Virgin Atlantic, Saudia, Ethiopian Airlines, Singapore
-   Airlines and Air France all publish these). Some airlines require a
-   quick partner/press registration before download — check usage terms,
-   since logos remain the airline's trademark even when downloadable.
-2. Save it as an SVG if possible (falls back to PNG with a transparent
-   background if SVG isn't available).
-3. Name the file to match exactly what's expected (see table below) and
-   drop it into this folder: public/images/airlines/
+If you want to de-risk later, swap any of these 8 for the airline's own
+official press/media/brand-kit asset (search "[airline name] media kit") —
+no code changes needed, just replace the file with the same name.
 
 Expected filename           Airline
 ---------------------------  -----------------------
-british-airways.svg          British Airways
-emirates.svg                 Emirates
-qatar-airways.svg            Qatar Airways
-turkish-airlines.svg         Turkish Airlines
-etihad.svg                   Etihad Airways
-lufthansa.svg                Lufthansa
-klm.svg                      KLM
-virgin-atlantic.svg          Virgin Atlantic
-saudia.svg                   Saudia
-ethiopian-airlines.svg       Ethiopian Airlines
-singapore-airlines.svg       Singapore Airlines
-air-france.svg                Air France
+british-airways.png          British Airways
+emirates.png                 Emirates
+qatar-airways.png            Qatar Airways
+turkish-airlines.png         Turkish Airlines
+etihad.png                   Etihad Airways
+lufthansa.png                Lufthansa
+klm.png                      KLM
+virgin-atlantic.png          Virgin Atlantic
+saudia.png                   Saudia
+ethiopian-airlines.png       Ethiopian Airlines
+singapore-airlines.png       Singapore Airlines
+air-france.png                Air France
 
-That's it — no code changes needed. As soon as a file with the right name
-lands in this folder and gets deployed, that airline's card automatically
-switches from text to the real logo (components/home/AirlinesSlider.tsx
-handles this — see lib/data/airlines.ts for the exact filenames it looks
-for).
+If a file is ever removed, that airline's card just falls back to showing
+its name as text (components/home/AirlinesSlider.tsx handles this — see
+lib/data/airlines.ts for the exact filenames it looks for).
 
 NOTE ON DARK MODE
 ------------------
 Logos are rendered with a CSS filter in dark mode (invert/brightness) so
 coloured logos on a white card don't disappear against the dark background.
-If a specific airline's logo looks wrong in dark mode once added, that's
-a one-line CSS tweak — just flag it.
+A couple of these logos (e.g. Emirates, which has a solid red background box)
+may look slightly off after the invert filter in dark mode — flag it if so
+and it's a one-line CSS tweak per airline.
 
 ADDING MORE AIRLINES
 ---------------------
 To add an airline that isn't in the list at all, add an entry to
 lib/data/airlines.ts (name, slug, logo path following the same pattern)
-and optionally drop the matching logo file here.
+and drop the matching logo file here.
