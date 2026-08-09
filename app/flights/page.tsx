@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { FlightSearchWidget } from '@/components/home/FlightSearchWidget';
+import { PopularDestinationsGrid } from '@/components/home/PopularDestinationsGrid';
 import { AirlinesSlider } from '@/components/home/AirlinesSlider';
 import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
 import { FAQSection } from '@/components/sections/FAQSection';
@@ -44,14 +44,7 @@ export default async function FlightsPage() {
       <section className="section-pad bg-white dark:bg-navy-950">
         <Container>
           <SectionHeading eyebrow="Popular Routes" title="Direct Flights From the UK" align="left" className="mx-0 text-left" />
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {destinations.slice(0, 15).map((d) => (
-              <Link key={d.slug} href={`/flights?to=${d.slug}`} className="card-lift flex flex-col gap-1 rounded-xl2 border border-navy-100 bg-surface p-5 dark:border-white/10 dark:bg-navy-800">
-                <span className="font-heading text-sm font-bold text-navy dark:text-white">{d.city}</span>
-                <span className="text-xs text-navy-700/60 dark:text-white/50">from £{d.fromPrice}</span>
-              </Link>
-            ))}
-          </div>
+          <PopularDestinationsGrid destinations={destinations.slice(0, 15)} />
         </Container>
       </section>
 
