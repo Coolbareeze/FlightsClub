@@ -17,7 +17,7 @@ export function PopularDestinationsGrid({ destinations }: { destinations: Destin
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, delay: (i % 5) * 0.08 }}
         >
-          <Link href={`/flights?to=${d.slug}`} className="card-lift group relative block aspect-[3/4] overflow-hidden rounded-xl2 shadow-soft">
+          <Link href={`/flights/${d.slug}`} className="card-lift group relative block aspect-[3/4] overflow-hidden rounded-xl2 shadow-soft">
             <Image
               src={d.image}
               alt={`${d.city}, ${d.country}`}

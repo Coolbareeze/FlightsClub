@@ -38,7 +38,7 @@ export default async function SiteMapPage() {
           <div>
             <h2 className="font-heading text-sm font-bold uppercase tracking-wide text-gold-dark">Destinations</h2>
             <ul className="mt-4 space-y-2.5 text-sm text-navy-700/75 dark:text-white/60">
-              {destinations.slice(0, 8).map((d) => <li key={d.slug}><Link href={`/flights?to=${d.slug}`} className="hover:text-navy dark:hover:text-white">{d.city}</Link></li>)}
+              {destinations.slice(0, 8).map((d) => <li key={d.slug}><Link href={`/flights/${d.slug}`} className="hover:text-navy dark:hover:text-white">{d.city}</Link></li>)}
             </ul>
           </div>
 

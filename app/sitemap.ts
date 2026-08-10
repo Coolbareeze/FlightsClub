@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/constants';
 import { blogPosts } from '@/lib/data/blog';
 import { getAllPackages } from '@/lib/data/packages';
+import { getAllDestinations } from '@/lib/data/destinations';
 
 const staticPaths = [
   '', '/flights', '/holiday-packages', '/city-breaks', '/beach-holidays', '/luxury-holidays',
@@ -12,7 +13,7 @@ const staticPaths = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const packages = await getAllPackages();
+  const [packages, destinations] = await Promise.all([getAllPackages(), getAllDestinations()]);
 
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((path) => ({
     url: `${SITE.url}${path}`,
@@ -35,5 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...blogEntries, ...packageEntries];
+  const destinationEntries: MetadataRoute.Sitemap = destinations.map((d) => ({
+    url: `${SITE.url}/flights/${d.slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...blogEntries, ...packageEntries, ...destinationEntries];
 }
