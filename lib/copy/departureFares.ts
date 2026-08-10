@@ -53,6 +53,7 @@ export function getDepartureFares(slug: string, basePrice: number): DepartureFar
 
     const markup = 15 + (hash % 180); // +£15 to +£194 vs the London fare
     const isDirect = hash % 3 !== 0; // roughly 2 in 3 shown as direct
-    return { city, price: basePrice + markup, stops: (isDirect ? 'Direct' : '1+ stops') as const };
+    const stops: DepartureFare['stops'] = isDirect ? 'Direct' : '1+ stops';
+    return { city, price: basePrice + markup, stops };
   });
 }
