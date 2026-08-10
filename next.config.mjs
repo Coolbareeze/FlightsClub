@@ -7,6 +7,12 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'images.pexels.com' },
       { protocol: 'https', hostname: 'picsum.photos' },
+      // Your own hosted images (e.g. uploaded via Hostinger File Manager
+      // into public/images/destinations/ and referenced by full URL in the
+      // admin panel's "Image URL" field) — without this, next/image
+      // refuses to load images from a domain that isn't explicitly allowed.
+      { protocol: 'https', hostname: 'flightsclubuk.co.uk' },
+      { protocol: 'https', hostname: 'www.flightsclubuk.co.uk' },
     ],
   },
   async headers() {
