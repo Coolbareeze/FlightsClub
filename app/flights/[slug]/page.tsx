@@ -6,6 +6,7 @@ import { buildMetadata } from '@/lib/seo';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { QuoteRequestForm } from '@/components/forms/QuoteRequestForm';
+import { DepartureFaresGrid } from '@/components/flights/DepartureFaresGrid';
 import { PopularDestinationsGrid } from '@/components/home/PopularDestinationsGrid';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
@@ -94,10 +95,20 @@ export default async function DestinationFlightsPage({ params }: { params: Promi
                 {flightPricingNote(destination.slug, destination.city, formatGBP(destination.fromPrice))}
               </p>
             </div>
+
+            <div className="mt-10">
+              <h2 className="font-heading text-lg font-bold text-navy dark:text-white">Compare Fares by UK Departure Airport</h2>
+              <p className="mt-2 text-sm leading-relaxed text-navy-700/75 dark:text-white/65">
+                Not flying from London? Here&rsquo;s a guide price to {destination.city} from other major UK airports — tap any city to request an exact quote.
+              </p>
+              <div className="mt-5">
+                <DepartureFaresGrid slug={destination.slug} basePrice={destination.fromPrice} />
+              </div>
+            </div>
           </div>
 
           <div className="lg:col-span-2">
-            <div className="sticky top-28 rounded-xl2 border border-navy-100 bg-white p-6 shadow-premium dark:border-white/10 dark:bg-navy-800">
+            <div id="quote-form" className="sticky top-28 scroll-mt-28 rounded-xl2 border border-navy-100 bg-white p-6 shadow-premium dark:border-white/10 dark:bg-navy-800">
               <div className="flex items-end justify-between border-b border-navy-100 pb-5 dark:border-white/10">
                 <div>
                   <p className="text-xs text-navy-700/60 dark:text-white/50">Flights to {destination.city} from</p>
