@@ -40,10 +40,18 @@ CREATE TABLE IF NOT EXISTS destinations (
   image TEXT NOT NULL,
   from_price INT NOT NULL,
   blurb TEXT NOT NULL,
-  region ENUM('uk', 'europe', 'middleeast', 'asia', 'americas', 'oceania') NOT NULL,
+  region ENUM('uk', 'europe', 'middleeast', 'africa', 'asia', 'americas', 'oceania') NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`;
+
+// CREATE TABLE IF NOT EXISTS won't widen the region ENUM on a database that
+// already has the destinations table from before 'africa' was added — so
+// explicitly (re)declare the column definition too. Safe to run repeatedly;
+// MODIFY COLUMN with the same/wider enum doesn't touch existing row data.
+const WIDEN_REGION_ENUM = `
+ALTER TABLE destinations
+  MODIFY COLUMN region ENUM('uk', 'europe', 'middleeast', 'africa', 'asia', 'americas', 'oceania') NOT NULL`;
 
 export async function POST() {
   try {
@@ -51,6 +59,7 @@ export async function POST() {
 
     await pool.query(CREATE_PACKAGES);
     await pool.query(CREATE_DESTINATIONS);
+    await pool.query(WIDEN_REGION_ENUM);
 
     for (const p of seedPackages) {
       await pool.query(

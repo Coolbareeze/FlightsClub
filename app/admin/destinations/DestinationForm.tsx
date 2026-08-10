@@ -17,7 +17,7 @@ const schema = z.object({
   image: z.string().url('Enter a valid image URL'),
   fromPrice: z.coerce.number().int().positive('Enter a starting price'),
   blurb: z.string().min(5, 'Add a short description'),
-  region: z.enum(['uk', 'europe', 'middleeast', 'asia', 'americas', 'oceania']),
+  region: z.enum(['uk', 'europe', 'middleeast', 'africa', 'asia', 'americas', 'oceania']),
 });
 type FormValues = z.infer<typeof schema>;
 
@@ -71,6 +71,7 @@ export function DestinationForm({ initial }: { initial?: Destination }) {
         <Select id="region" {...register('region')}>
           <option value="europe">Europe</option>
           <option value="middleeast">Middle East</option>
+          <option value="africa">Africa</option>
           <option value="asia">Asia</option>
           <option value="americas">Americas</option>
           <option value="oceania">Oceania</option>

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS destinations (
   image TEXT NOT NULL,
   from_price INT NOT NULL,
   blurb TEXT NOT NULL,
-  region ENUM('uk', 'europe', 'middleeast', 'asia', 'americas', 'oceania') NOT NULL,
+  region ENUM('uk', 'europe', 'middleeast', 'africa', 'asia', 'americas', 'oceania') NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

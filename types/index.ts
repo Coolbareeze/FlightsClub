@@ -6,7 +6,7 @@ export interface Destination {
   image: string;
   fromPrice: number;
   blurb: string;
-  region: 'uk' | 'europe' | 'middleeast' | 'asia' | 'americas' | 'oceania';
+  region: 'uk' | 'europe' | 'middleeast' | 'africa' | 'asia' | 'americas' | 'oceania';
 }
 
 export interface HolidayPackage {

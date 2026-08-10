@@ -371,6 +371,28 @@ export const seedDestinations: Destination[] = [
   { slug: 'nassau-bahamas', city: 'Nassau', country: 'Bahamas', region: 'americas', image: 'https://picsum.photos/seed/nassau-bahamas/1200/1400', fromPrice: 599, blurb: 'Powder-white sands across turquoise shallows.' },
   { slug: 'bridgetown-barbados', city: 'Bridgetown', country: 'Barbados', region: 'americas', image: 'https://picsum.photos/seed/bridgetown-barbados/1200/1400', fromPrice: 549, blurb: 'Rum, reggae and the friendliest shores in the Caribbean.' },
   { slug: 'montreal', city: 'Montreal', country: 'Canada', region: 'americas', image: 'https://picsum.photos/seed/montreal-city/1200/1400', fromPrice: 429, blurb: 'French joie de vivre on the St. Lawrence River.' },
+  { slug: 'punta-cana', city: 'Punta Cana', country: 'Dominican Republic', region: 'americas', image: 'https://picsum.photos/seed/puntacana-beach/1200/1400', fromPrice: 649, blurb: 'All-inclusive resorts along miles of white-sand coast.' },
+  { slug: 'havana', city: 'Havana', country: 'Cuba', region: 'americas', image: 'https://picsum.photos/seed/havana-city/1200/1400', fromPrice: 629, blurb: 'Vintage cars and live music on colonial streets.' },
+  { slug: 'antigua', city: 'St John’s', country: 'Antigua and Barbuda', region: 'americas', image: 'https://picsum.photos/seed/antigua-beach/1200/1400', fromPrice: 599, blurb: 'A beach for every day of the year, they say.' },
+  { slug: 'st-lucia', city: 'Castries', country: 'St Lucia', region: 'americas', image: 'https://picsum.photos/seed/stlucia-pitons/1200/1400', fromPrice: 649, blurb: 'The Pitons rising dramatically from turquoise bays.' },
+  { slug: 'aruba', city: 'Oranjestad', country: 'Aruba', region: 'americas', image: 'https://picsum.photos/seed/aruba-beach/1200/1400', fromPrice: 679, blurb: 'One Happy Island, with beaches to match the name.' },
+  { slug: 'bogota', city: 'Bogotá', country: 'Colombia', region: 'americas', image: 'https://picsum.photos/seed/bogota-city/1200/1400', fromPrice: 549, blurb: 'A high-altitude capital of street art and salsa.' },
+  { slug: 'panama-city', city: 'Panama City', country: 'Panama', region: 'americas', image: 'https://picsum.photos/seed/panamacity-skyline/1200/1400', fromPrice: 579, blurb: 'A gleaming skyline beside the historic canal.' },
+  { slug: 'san-diego', city: 'San Diego', country: 'United States', region: 'americas', image: 'https://picsum.photos/seed/sandiego-coast/1200/1400', fromPrice: 459, blurb: 'Laid-back Pacific coast sunshine year-round.' },
+  { slug: 'seattle', city: 'Seattle', country: 'United States', region: 'americas', image: 'https://picsum.photos/seed/seattle-skyline/1200/1400', fromPrice: 439, blurb: 'Coffee culture beneath the Space Needle.' },
+  { slug: 'new-orleans', city: 'New Orleans', country: 'United States', region: 'americas', image: 'https://picsum.photos/seed/neworleans-quarter/1200/1400', fromPrice: 429, blurb: 'Jazz, jambalaya and French Quarter charm.' },
+
+  // --- Africa ---
+  { slug: 'cape-town', city: 'Cape Town', country: 'South Africa', region: 'africa', image: 'https://picsum.photos/seed/capetown-tablemountain/1200/1400', fromPrice: 549, blurb: 'Table Mountain, Winelands and a coastline to match.' },
+  { slug: 'johannesburg', city: 'Johannesburg', country: 'South Africa', region: 'africa', image: 'https://picsum.photos/seed/johannesburg-city/1200/1400', fromPrice: 499, blurb: 'A gateway city to safari country and beyond.' },
+  { slug: 'nairobi', city: 'Nairobi', country: 'Kenya', region: 'africa', image: 'https://picsum.photos/seed/nairobi-city/1200/1400', fromPrice: 479, blurb: 'The safari capital, wildlife on the city’s doorstep.' },
+  { slug: 'zanzibar', city: 'Zanzibar', country: 'Tanzania', region: 'africa', image: 'https://picsum.photos/seed/zanzibar-beach/1200/1400', fromPrice: 599, blurb: 'Spice island beaches and centuries-old Stone Town.' },
+  { slug: 'mombasa', city: 'Mombasa', country: 'Kenya', region: 'africa', image: 'https://picsum.photos/seed/mombasa-coast/1200/1400', fromPrice: 519, blurb: 'Indian Ocean beaches with a Swahili coast heritage.' },
+  { slug: 'mauritius', city: 'Mauritius', country: 'Mauritius', region: 'africa', image: 'https://picsum.photos/seed/mauritius-lagoon/1200/1400', fromPrice: 799, blurb: 'Lagoon-blue water and honeymoon-perfect resorts.' },
+  { slug: 'seychelles', city: 'Victoria', country: 'Seychelles', region: 'africa', image: 'https://picsum.photos/seed/seychelles-beach/1200/1400', fromPrice: 849, blurb: 'Granite boulders and powder sand on a private-island scale.' },
+  { slug: 'lagos', city: 'Lagos', country: 'Nigeria', region: 'africa', image: 'https://picsum.photos/seed/lagos-city/1200/1400', fromPrice: 449, blurb: 'West Africa’s buzzing commercial and cultural capital.' },
+  { slug: 'accra', city: 'Accra', country: 'Ghana', region: 'africa', image: 'https://picsum.photos/seed/accra-city/1200/1400', fromPrice: 439, blurb: 'Coastal forts and vibrant markets on the Gulf of Guinea.' },
+  { slug: 'addis-ababa', city: 'Addis Ababa', country: 'Ethiopia', region: 'africa', image: 'https://picsum.photos/seed/addisababa-city/1200/1400', fromPrice: 469, blurb: 'A high-altitude capital and gateway to ancient history.' },
 
   // --- Oceania ---
   { slug: 'auckland', city: 'Auckland', country: 'New Zealand', region: 'oceania', image: 'https://picsum.photos/seed/auckland-harbour/1200/1400', fromPrice: 949, blurb: 'A city of sails between two shimmering harbours.' },

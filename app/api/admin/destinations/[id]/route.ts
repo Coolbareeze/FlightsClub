@@ -9,7 +9,7 @@ const destinationSchema = z.object({
   image: z.string().url(),
   fromPrice: z.coerce.number().int().positive(),
   blurb: z.string().min(5),
-  region: z.enum(['uk', 'europe', 'middleeast', 'asia', 'americas', 'oceania']),
+  region: z.enum(['uk', 'europe', 'middleeast', 'africa', 'asia', 'americas', 'oceania']),
 });
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
