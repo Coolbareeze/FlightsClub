@@ -12,6 +12,7 @@ import { BreadcrumbSchema } from '@/components/seo/JsonLd';
 import { getAllDestinations, getDestinationBySlug } from '@/lib/data/destinations';
 import { generalFaqs } from '@/lib/data/faqs';
 import { formatGBP } from '@/lib/utils';
+import { flightPricingNote } from '@/lib/copy/flightPricingNote';
 
 export const dynamic = 'force-dynamic';
 
@@ -79,10 +80,7 @@ export default async function DestinationFlightsPage({ params }: { params: Promi
             <div className="mt-10">
               <h2 className="font-heading text-lg font-bold text-navy dark:text-white">Flying to {destination.city}</h2>
               <p className="mt-3 text-sm leading-relaxed text-navy-700/75 dark:text-white/65">
-                Fares to {destination.city} change by the hour, so we don't publish a live price here — fares from{' '}
-                {formatGBP(destination.fromPrice)} per person reflect what customers have recently paid for this route.
-                Send us your travel dates below and one of our flight specialists will send you real fare options,
-                usually within 2 working hours.
+                {flightPricingNote(destination.slug, destination.city, formatGBP(destination.fromPrice))}
               </p>
             </div>
           </div>
