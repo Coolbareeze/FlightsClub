@@ -268,9 +268,9 @@ export const seedPackages: HolidayPackage[] = [
 ];
 
 export const seedDestinations: Destination[] = [
-  { slug: 'london', city: 'London', country: 'United Kingdom', region: 'uk', image: 'https://picsum.photos/seed/london-skyline/1200/1400', fromPrice: 49, blurb: 'Royal history meets modern glamour on the Thames.' },
-  { slug: 'manchester', city: 'Manchester', country: 'United Kingdom', region: 'uk', image: 'https://picsum.photos/seed/manchester-city/1200/1400', fromPrice: 39, blurb: 'Northern energy, world-class culture and sport.' },
-  { slug: 'birmingham', city: 'Birmingham', country: 'United Kingdom', region: 'uk', image: 'https://picsum.photos/seed/birmingham-city/1200/1400', fromPrice: 35, blurb: 'The beating heart of the Midlands, reimagined.' },
+  { slug: 'tenerife', city: 'Tenerife', country: 'Spain', region: 'europe', image: 'https://picsum.photos/seed/tenerife-coast/1200/1400', fromPrice: 69, blurb: 'Year-round Canary Islands sun, just a few hours away.' },
+  { slug: 'sharm-el-sheikh', city: 'Sharm El Sheikh', country: 'Egypt', region: 'middleeast', image: 'https://picsum.photos/seed/sharm-elsheikh/1200/1400', fromPrice: 249, blurb: 'Red Sea diving and desert luxury on the Sinai coast.' },
+  { slug: 'alicante', city: 'Alicante', country: 'Spain', region: 'europe', image: 'https://picsum.photos/seed/alicante-coast/1200/1400', fromPrice: 49, blurb: 'The Costa Blanca’s classic sun-and-sea getaway.' },
   { slug: 'dubai', city: 'Dubai', country: 'United Arab Emirates', region: 'middleeast', image: 'https://picsum.photos/seed/dubai-skyline/1200/1400', fromPrice: 349, blurb: 'Soaring towers, golden deserts and five-star everything.' },
   { slug: 'new-york', city: 'New York', country: 'United States', region: 'americas', image: 'https://picsum.photos/seed/newyork-city/1200/1400', fromPrice: 429, blurb: 'The city that never sleeps, always dazzles.' },
   { slug: 'toronto', city: 'Toronto', country: 'Canada', region: 'americas', image: 'https://picsum.photos/seed/toronto-city/1200/1400', fromPrice: 459, blurb: 'Cosmopolitan charm on the shores of Lake Ontario.' },
@@ -289,9 +289,8 @@ export const seedDestinations: Destination[] = [
   { slug: 'orlando', city: 'Orlando', country: 'United States', region: 'americas', image: 'https://picsum.photos/seed/orlando-parks/1200/1400', fromPrice: 449, blurb: 'Theme park magic for every member of the family.' },
   { slug: 'sydney', city: 'Sydney', country: 'Australia', region: 'oceania', image: 'https://picsum.photos/seed/sydney-harbour/1200/1400', fromPrice: 799, blurb: 'Harbour views, golden beaches, endless sunshine.' },
 
-  // --- UK ---
-  { slug: 'edinburgh', city: 'Edinburgh', country: 'United Kingdom', region: 'uk', image: 'https://picsum.photos/seed/edinburgh-castle/1200/1400', fromPrice: 45, blurb: 'A skyline of spires, castles and centuries of story.' },
-  { slug: 'glasgow', city: 'Glasgow', country: 'United Kingdom', region: 'uk', image: 'https://picsum.photos/seed/glasgow-city/1200/1400', fromPrice: 42, blurb: 'Scotland’s creative capital, bold and unpretentious.' },
+  { slug: 'faro', city: 'Faro', country: 'Portugal', region: 'europe', image: 'https://picsum.photos/seed/faro-algarve/1200/1400', fromPrice: 55, blurb: 'The Algarve’s golden cliffs and beach towns.' },
+  { slug: 'gran-canaria', city: 'Gran Canaria', country: 'Spain', region: 'europe', image: 'https://picsum.photos/seed/grancanaria-dunes/1200/1400', fromPrice: 75, blurb: 'Dunes, mountains and beaches on one Canary Island.' },
 
   // --- Europe ---
   { slug: 'barcelona', city: 'Barcelona', country: 'Spain', region: 'europe', image: 'https://picsum.photos/seed/barcelona-city/1200/1400', fromPrice: 59, blurb: 'Gaudí’s masterpieces meet Mediterranean beach life.' },

@@ -81,6 +81,15 @@ export async function POST() {
       );
     }
 
+    // One-time cleanup: these UK city "destinations" were replaced with
+    // worldwide sellers (this is a flights-from-the-UK business, not a UK
+    // domestic one) and no longer exist in seedDestinations above. Upserting
+    // by slug never deletes rows, so remove them explicitly here. Harmless
+    // to leave in — it's a no-op once these slugs are gone.
+    await pool.query(
+      `DELETE FROM destinations WHERE slug IN ('london', 'manchester', 'birmingham', 'edinburgh', 'glasgow')`
+    );
+
     return NextResponse.json({
       ok: true,
       packages: seedPackages.length,

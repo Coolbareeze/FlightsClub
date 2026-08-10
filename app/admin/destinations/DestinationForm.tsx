@@ -69,7 +69,6 @@ export function DestinationForm({ initial }: { initial?: Destination }) {
       </FieldWrap>
       <FieldWrap label="Region" htmlFor="region" error={errors.region?.message}>
         <Select id="region" {...register('region')}>
-          <option value="uk">UK</option>
           <option value="europe">Europe</option>
           <option value="middleeast">Middle East</option>
           <option value="asia">Asia</option>
