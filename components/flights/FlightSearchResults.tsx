@@ -51,7 +51,7 @@ export function FlightSearchResults({ match, from, to, depart, ret, passengers, 
                   </dl>
                   <p className="pt-1 text-xs leading-relaxed text-navy-500 dark:text-white/50">
                     Fares change by the hour, so we don't show a live price here — fill in the form and one of our flight
-                    specialists will send you real fare options for these exact dates within 2 working hours.
+                    specialists will send you real fare options for these exact dates within 1 working hour.
                   </p>
                 </div>
               </div>
@@ -63,7 +63,7 @@ export function FlightSearchResults({ match, from, to, depart, ret, passengers, 
                 <p className="mt-2 text-sm leading-relaxed text-navy-500 dark:text-white/60">
                   We don't have a ready-made page for that route, but our consultants book flights to destinations well
                   beyond the ones listed on this site. Send us your details below and a flight specialist will get back
-                  to you with real fare options — usually within 2 working hours.
+                  to you with real fare options — usually within 1 working hour.
                 </p>
                 <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
                   <div><dt className="text-navy-400">From</dt><dd className="font-medium text-navy dark:text-white">{from || '—'}</dd></div>

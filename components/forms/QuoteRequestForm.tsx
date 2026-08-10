@@ -64,7 +64,7 @@ export function QuoteRequestForm({ defaultOrigin, defaultDestination, defaultDep
     window.open(`https://wa.me/${SITE.whatsapp.replace('+', '')}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
-  if (submitted) return <FormSuccess message="Your quote request has been received. A flight specialist will send fare options within 2 working hours." />;
+  if (submitted) return <FormSuccess message="Your quote request has been received. A flight specialist will send fare options within 1 working hour." />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-5 sm:grid-cols-2">
