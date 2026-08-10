@@ -1,4 +1,5 @@
 import { getPool } from '@/lib/db';
+import { normalizeImageUrl } from '@/lib/utils';
 import type { Destination } from '@/types';
 import type { RowDataPacket } from 'mysql2';
 
@@ -19,7 +20,7 @@ function mapRow(row: DestinationRow): Destination {
     slug: row.slug,
     city: row.city,
     country: row.country,
-    image: row.image,
+    image: normalizeImageUrl(row.image),
     fromPrice: row.from_price,
     blurb: row.blurb,
     region: row.region,

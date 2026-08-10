@@ -1,4 +1,5 @@
 import { getPool } from '@/lib/db';
+import { normalizeImageUrl } from '@/lib/utils';
 import type { HolidayPackage } from '@/types';
 import type { RowDataPacket } from 'mysql2';
 
@@ -29,7 +30,7 @@ function mapRow(row: PackageRow): HolidayPackage {
     title: row.title,
     destination: row.destination,
     country: row.country,
-    image: row.image,
+    image: normalizeImageUrl(row.image),
     duration: row.duration,
     nights: row.nights,
     price: row.price,
