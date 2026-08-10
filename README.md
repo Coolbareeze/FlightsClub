@@ -175,6 +175,42 @@ directly from the same database (pages are server-rendered per request).
   invalidated since the cookie is verified against the current secret/password
   each request.
 
+## Email Notifications
+
+Every form on the site (flight quote, holiday enquiry, visa enquiry,
+corporate travel, contact, newsletter) sends a notification email to
+**info@flightsclubuk.co.uk** using that mailbox's own SMTP credentials —
+no third-party service (Resend/SendGrid/etc.) required.
+
+### Set up
+
+1. In **hPanel** → **Emails**, make sure `info@flightsclubuk.co.uk` exists
+   (create it if not) and note/reset its password.
+2. Add these environment variables in Hostinger under your Node.js app →
+   **Environment variables** (same place as `DB_HOST` etc. — see **Admin
+   Panel** above), then **restart the Node.js app**:
+
+   ```
+   SMTP_HOST=smtp.hostinger.com
+   SMTP_PORT=465
+   SMTP_SECURE=true
+   SMTP_USER=info@flightsclubuk.co.uk
+   SMTP_PASSWORD=that-mailbox's-password
+   ```
+
+   These values are for a standard Hostinger-hosted mailbox — double-check
+   the exact host/port under `info@flightsclubuk.co.uk` → **Connect Apps &
+   Devices** → **Configure Email Client** → **Manual Configuration** if
+   emails don't send.
+3. Test by submitting any form on the live site — an email should arrive at
+   info@flightsclubuk.co.uk within a few seconds, with **Reply-To** already
+   set to the customer's email address so you can reply directly.
+
+If `SMTP_HOST`/`SMTP_USER`/`SMTP_PASSWORD` aren't set, form submissions
+still succeed for the customer (so the site never shows a broken form) —
+the email step just fails silently and logs an error server-side. Check
+those logs if an expected email doesn't arrive.
+
 ## SEO
 
 - Per-page `generateMetadata` / `metadata` exports (title, description, canonical, OG, Twitter cards)
@@ -230,7 +266,9 @@ colour contrast chosen against WCAG AA against the navy/white/gold palette.
 ## Known Limitations / Next Steps
 
 - Placeholder imagery (picsum.photos) throughout — replace before launch
-- Forms are wired to mock API routes, not a live email/CRM backend
+- Forms email info@flightsclubuk.co.uk directly via SMTP — see **Email
+  Notifications** above. No CRM/pipeline yet if you want submissions tracked
+  somewhere beyond an inbox (e.g. HubSpot, a spreadsheet via Zapier)
 - No logo/favicon supplied yet (by design, per brief)
 - Dark mode toggle is implemented (class-based, persisted to `localStorage`) but not deeply audited on every component
 - Packages and Destinations are editable via the built-in `/admin` panel (MySQL-backed) — see **Admin Panel** above. Other content (blog posts, testimonials, FAQs, airlines) still lives in typed data files under `lib/data/` for now; the same admin-panel pattern can be extended to these if needed.
