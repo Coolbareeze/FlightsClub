@@ -53,8 +53,19 @@ export default async function DestinationFlightsPage({ params }: { params: Promi
       <Container>
         <div className="grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl3 shadow-premium">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl3 shadow-premium">
               <Image src={destination.image} alt={`${destination.city}, ${destination.country}`} fill priority className="object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/85 via-navy-950/35 to-transparent px-5 pb-4 pt-14">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-medium text-white/70">Flights to {destination.city} from</p>
+                    <p className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                      {formatGBP(destination.fromPrice)} <span className="text-sm font-medium text-white/70">pp</span>
+                    </p>
+                  </div>
+                  <span className="eyebrow bg-white/15 text-white backdrop-blur">ATOL Protected</span>
+                </div>
+              </div>
             </div>
             <div className="mt-6 flex items-center gap-2 text-sm text-navy-700/60 dark:text-white/50">
               <MapPin className="h-4 w-4 text-gold" /> {destination.city}, {destination.country}
